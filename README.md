@@ -66,11 +66,12 @@ The goal of this app is to speed up play and manage player characters.
 | `/`                          | HomePage             | public `<Route>`           | Home page.                                                |
 | `/user-profile`              | ProfilePage          | user only `<PrivateRoute>` | User and player profile for the current user.             |
 | `/user-profile/edit`         | EditProfilePage      | user only `<PrivateRoute>` | Edit user profile form.                                   |
-| `/tournaments/add`           | CreateTournamentPage | user only `<PrivateRoute>` | Create new tournament form.                               |
-| `/tournaments`               | TournamentListPage   | user only `<PrivateRoute>` | Tournaments list.                                         |
-| `/tournaments/:tournamentId` | TournamentDetailPage | user only `<PrivateRoute>` | Tournament details. Shows players list and other details. |
-| `/tournament/players/:id`    | PlayerDetailsPage    | user only `<PrivateRoute>` | Single player details.                                    |
-| `/rankings/:tournamentId`    | RankingsPage         | user only `<PrivateRoute>` | Tournament rankings list.                                 |
+| `/character/generate`           | GenerateCharacter | all users | Generate a random player charater.                               |
+| `/characterlist`               | CharacterListPage   | user only `<PrivateRoute>` | Player Character list.                                         |
+| `/characterlist/:characterId` | CharacterDetailPage | user only `<PrivateRoute>` | Player Character details. |
+| `/party/create`           | CreateParty |  user only `<PrivateRoute>` | Create a new party.                               |
+| `/partylist`               | PartyListPage   | user only `<PrivateRoute>` | Party list.                                         |
+| `/partylist/:partyId` | PartyDetailPage | user only `<PrivateRoute>` | Party details. |
 
 
 
