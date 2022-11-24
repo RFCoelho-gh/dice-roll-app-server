@@ -225,7 +225,7 @@ The goal of this app is to speed up play and manage player characters.
 | GET         | `/api/characterlist`     |                              |                | 400          | Show all player characters                                         |
 | GET         | `/api/character/:id` |                              |                |              | Show specific player character                                     |
 | GET        | `/api/generatecharacter`     |       | 201            | 400          | Generate a randomized player character                             |
-| POST        | `/api/savecharacter`     | { firstName, ancestry, background, class }       | 201            | 400          | Generate a randomized player character                             |
+| POST        | `/api/save-character`     | { firstName, ancestry, background, class }       | 201            | 400          | Generate a randomized player character                             |
 | PUT         | `/api/character/:id` | { firstName, ancestry, background, class }       | 200            | 400          | edit specific player character                                              |
 | DELETE      | `/api/character/:id` |                              | 201            | 400          | delete specific player character                                            |
 | GET         | `/api/partylist`     |                              |                | 400          | Show all adventuring parties                                         |

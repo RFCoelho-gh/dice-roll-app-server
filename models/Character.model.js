@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const charachterSchema = new Schema(
+const characterSchema = new Schema(
     {
         firstName: {
             type: String,
@@ -11,7 +11,7 @@ const charachterSchema = new Schema(
         },
         gender: {
             type: String,
-            default: "Not defined",
+            default: "other",
         },
         level: {
             type: Number,
@@ -28,7 +28,7 @@ const charachterSchema = new Schema(
             required: [true, "Background is required."],
             default: "Farmer",
         },
-        class: {
+        charClass: {
             type: String,
             required: [true, "Class is required."],
             default: "Fighter",
@@ -42,3 +42,5 @@ const charachterSchema = new Schema(
         timestamps: true,
     }
 );
+
+module.exports = model("Character", characterSchema)
