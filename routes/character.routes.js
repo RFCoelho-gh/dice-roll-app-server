@@ -30,7 +30,8 @@ router.post('/save-character', async (req, res, next) => {
 
 router.get('/user/:id/characterlist', async (req, res, next) =>{
 
-    const userId = req.params.id;
+    const {id} = req.params;
+    const userId = id;
 
     try {
         const allChars = await User.findById(userId).populate("characters");
@@ -46,7 +47,8 @@ router.get('/user/:id/characterlist', async (req, res, next) =>{
 
 router.get('/character/:id', async (req, res, next) => {
 
-    const charId = req.params.id;
+    const {id} = req.params;
+    const charId = id;
 
     try {
         const specificChar = await Character.findById(charId);
@@ -61,17 +63,18 @@ router.get('/character/:id', async (req, res, next) => {
 
 router.put('character/:id', async(req, res, next) => {
 
+    const {id} = req.params;
+    const charId = id;
+    const {
+        firstName, lastName, gender, 
+        level, ancestry, background, 
+        charClass, deity, attributes
+    } = req.body;
+
     try {
 
-        const {id} = req.params;
-        const charId = id;
-        const {
-            firstName, lastName, gender, 
-            level, ancestry, background, 
-            charClass, deity, attributes
-        } = req.body;
 
-        const updatedChar = await Character.findByIdAndUpdate(id, {
+        const updatedChar = await Character.findByIdAndUpdate(charId, {
             firstName, lastName, gender, 
             level, ancestry, background, 
             charClass, deity, attributes
@@ -87,17 +90,19 @@ router.put('character/:id', async(req, res, next) => {
 //! DELETE (delete) SINGLE CHARACTER route
 
 router.delete('/character/:id', async (req, res, next) => {
+
+    const {id} = req.params;
+    const charId = id;
+
     try {
-        const {id} = req.params;
-        const charId = id;
 
         const deletedChar = await Character.findByIdAndDelete(charId);
 
         //Checking for Last Names because of Syntax shenanigans
         if(deletedChar.lastName) {
-            res.status(200).json({message: `The character with the id '${charId}' and name '${deletedChar.firstName} + ${deletedChar.lastName}' (${deletedChar.charClass}) was deleted successfully.`});
+            res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName} + ${deletedChar.lastName}' (${deletedChar.charClass}) was deleted successfully.`});
         } else {
-            res.status(200).json({message: `The character with the id '${charId}' and name '${deletedChar.firstName}' (${deletedChar.charClass}) was deleted successfully.`});
+            res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName}' (${deletedChar.charClass}) was deleted successfully.`});
         }
     } catch (err) {
         next(err); 
