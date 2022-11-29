@@ -5,12 +5,16 @@ const Character = require('../models/Character.model');
 
 //! POST party (create) route
 
-router.post('/create-party', async (req, res, next) => {
+router.post('/create-party/user/:id', async (req, res, next) => {
     try {
 
         const {name} = req.body;
 
+        const creatorId = req.params.id;
+
         const newParty = await Party.create({name});
+
+        await User.findByIdAndUpdate(creatorId, {$push: {parties: newParty._id}});
 
         res.status(201).json(newParty);
         
@@ -22,7 +26,7 @@ router.post('/create-party', async (req, res, next) => {
 
 //! GET ALL PARTIES route
 
-router.get('user/:id/partylist', async (req, res, next) => {
+router.get('/partylist/user/:id', async (req, res, next) => {
 
     const {id} = req.params.id;
     const userId = id;

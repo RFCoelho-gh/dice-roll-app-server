@@ -128,4 +128,18 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 
+router.get("/check-user/:id", async (req, res, next) => {
+
+  const userId = req.params.id;
+
+  try {
+
+    const specificUser = await User.findById(userId);
+    res.status(200).json(specificUser);
+    
+  } catch (err) {
+    next(err);
+  };
+});
+
 module.exports = router;
