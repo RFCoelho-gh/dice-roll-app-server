@@ -9,34 +9,41 @@ router.post('/save-character', async (req, res, next) => {
     try {
 
         const {firstName, lastName, gender, level, ancestry,
-        background, charClass, deity} = req.body;
+        background, charClass, deity, attributes} = req.body;
 
         const newCharacter = await Character.create({
             firstName, lastName, gender, 
             level, ancestry, background, 
-            charClass, deity, attributes
+            charClass, deity, attributes 
         });
+
+        //Find correct User?
+
+        await User.findByIdAndUpdate(
+            newCharacter,
+            {$push: {characters: newCharacter._id}}
+        );
 
         res.status(201).json(newCharacter);
         
     } catch (err) {
-        res.json(err);
         next(err);
-        
     };
 });
 
-//! GET ALL CHARACTERS route
+//! GET ALL CHARACTERS route, regardless of User
 
-router.get('/user/:id/characterlist', async (req, res, next) =>{
+router.get('/characterlist/global', async (req, res, next) =>{
 
     const {id} = req.params;
     const userId = id;
 
     try {
-        const allChars = await User.findById(userId).populate("characters");
+        //const globalChars = await User.findById(userId).populate("characters");
 
-        res.status(200).json(allChars);
+        const globalChars = await Character.find();
+
+        res.status(200).json(globalChars);
         
     } catch (err) {
         next(err);
@@ -61,7 +68,7 @@ router.get('/character/:id', async (req, res, next) => {
 
 //! EDIT (put) SINGLE CHARACTER route
 
-router.put('character/:id', async(req, res, next) => {
+router.put('/character/:id', async(req, res, next) => {
 
     const {id} = req.params;
     const charId = id;
@@ -97,10 +104,10 @@ router.delete('/character/:id', async (req, res, next) => {
 
         const deletedChar = await Character.findByIdAndDelete(charId);
 
-        //Checking for 'Last Names' because of Syntax shenanigans,
+        // Checking for 'Last Names' because of Syntax shenanigans,
         // since lastName is not 'required' on Char Model
         if(deletedChar.lastName) {
-            res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName} + ${deletedChar.lastName}' (${deletedChar.charClass}) was deleted successfully.`});
+            res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName} ${deletedChar.lastName}' (${deletedChar.charClass}) was deleted successfully.`});
         } else {
             res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName}' (${deletedChar.charClass}) was deleted successfully.`});
         }

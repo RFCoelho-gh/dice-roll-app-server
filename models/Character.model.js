@@ -37,30 +37,33 @@ const characterSchema = new Schema(
             type: String,
             default: "None",
         },
-        attributes:  {
-            strength: {
-                type: Number,
-                default: 10
-            },
-            dexterity: {
-                type: Number,
-                default: 10
-            },
-            constitution: {
-                type: Number,
-                default: 10
-            },
-            intelligence: {
-                type: Number,
-                default: 10
-            },
-            wisdom: {
-                type: Number,
-                default: 10
-            },
-            charisma: {
-                type: Number,
-                default: 10
+        attributes: {
+            type: Object,
+            attributes: {
+                strength: {
+                    type: Number,
+                    default: 10,
+                },
+                dexterity: {
+                    type: Number,
+                    default: 10,
+                },
+                constitution: {
+                    type: Number,
+                    default: 10,
+                },
+                intelligence: {
+                    type: Number,
+                    default: 10,
+                },
+                wisdom: {
+                    type: Number,
+                    default: 10,
+                },
+                charisma: {
+                    type: Number,
+                    default: 10,
+                }
             }
         },
     },
