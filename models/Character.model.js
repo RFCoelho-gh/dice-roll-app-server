@@ -37,7 +37,7 @@ const characterSchema = new Schema(
             type: String,
             default: "None",
         },
-        attributes: {
+        attributes:  {
             strength: {
                 type: Number,
                 default: 10
