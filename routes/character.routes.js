@@ -40,7 +40,7 @@ router.get('/user/:id/characterlist', async (req, res, next) =>{
         
     } catch (err) {
         next(err);
-    }
+    };
 });
 
 //! GET SINGLE CHARACTER route
@@ -56,7 +56,7 @@ router.get('/character/:id', async (req, res, next) => {
         
     } catch (err) {
         next(err);
-    }
+    };
 });
 
 //! EDIT (put) SINGLE CHARACTER route
@@ -73,7 +73,6 @@ router.put('character/:id', async(req, res, next) => {
 
     try {
 
-
         const updatedChar = await Character.findByIdAndUpdate(charId, {
             firstName, lastName, gender, 
             level, ancestry, background, 
@@ -84,7 +83,7 @@ router.put('character/:id', async(req, res, next) => {
         
     } catch (err) {
         next(err);
-    }
+    };
 });
 
 //! DELETE (delete) SINGLE CHARACTER route
@@ -98,7 +97,8 @@ router.delete('/character/:id', async (req, res, next) => {
 
         const deletedChar = await Character.findByIdAndDelete(charId);
 
-        //Checking for Last Names because of Syntax shenanigans
+        //Checking for 'Last Names' because of Syntax shenanigans,
+        // since lastName is not 'required' on Char Model
         if(deletedChar.lastName) {
             res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName} + ${deletedChar.lastName}' (${deletedChar.charClass}) was deleted successfully.`});
         } else {

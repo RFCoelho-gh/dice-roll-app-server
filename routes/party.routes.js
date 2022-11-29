@@ -1,12 +1,13 @@
 const router = require('express').Router();
 const Party = require('../models/Party.model');
 const User = require('../models/User.model');
-const Character = require('../models/Character.model');
+//const Character = require('../models/Character.model');
 
 //! POST party (create) route
 
 router.post('/create-party', async (req, res, next) => {
     try {
+
         const {name} = req.body;
 
         const newParty = await Party.create({name});
@@ -14,7 +15,6 @@ router.post('/create-party', async (req, res, next) => {
         res.status(201).json(newParty);
         
     } catch (err) {
-
         next(err);
         
     };
@@ -40,6 +40,7 @@ router.get('user/:id/partylist', async (req, res, next) => {
 //! GET SINGLE PARTIES route
 
 router.get('/party/:id', async (req, res, next) => {
+
     const {id} = req.params;
     const partyId = id;
 
@@ -55,6 +56,7 @@ router.get('/party/:id', async (req, res, next) => {
 //! EDIT (put) SINGLE Party route
 
 router.put('/party/:id', async (req, res, next) => {
+
     const {id} = req.params;
     const partyId = id;
     const {name} = req.body;
@@ -90,3 +92,5 @@ router.delete('/party/:id', async (req, res, next) => {
         next(err);
     };
 });
+
+module.exports = router;
