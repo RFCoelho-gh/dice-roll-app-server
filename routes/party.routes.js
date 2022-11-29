@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Party = require('../models/Party.model');
 const User = require('../models/User.model');
-//const Character = require('../models/Character.model');
+const Character = require('../models/Character.model');
 
 //! POST party (create) route
 
@@ -46,7 +46,7 @@ router.get('/party/:id', async (req, res, next) => {
 
     try {
         const specificParty = await Party.findById(partyId);
-        res.stauts(200).json(specificParty);
+        res.status(200).json(specificParty);
         
     } catch (err) {
         next(err);
@@ -86,11 +86,34 @@ router.delete('/party/:id', async (req, res, next) => {
 
         const deletedParty = await Party.findByIdAndDelete(partyId)
 
-        res.status(200).json({message: `The party with the id '${partyId.slice(-4)}' and name '${deletedParty.name}' was deleted successfully.`});
+        res.status(200).json({message: `The party with the id '${partyId.slice(-4).toUpperCase()}' and name '${deletedParty.name}' was deleted successfully.`});
         
     } catch (err) {
         next(err);
     };
+});
+
+//! INSERT (put) CHARACTER INSIDE OF A PARTY route
+
+router.put('/party/:id/add-character', async (req, res, next) => {
+
+    //TODO: Maybe list of all Chars missing for Front End selection?
+
+    const partyId = req.params.id;
+    const {charId} = req.body;
+    
+    try {
+        const toBeInsertedChar = await Character.findById(charId);
+    
+        const updatedParty = await Party.findByIdAndUpdate(
+            partyId, {$push: {characters: toBeInsertedChar._id}}, 
+            {new: true});
+    
+        res.status(200).json(updatedParty);
+        
+    } catch (err) {
+        next(err);
+    }
 });
 
 module.exports = router;

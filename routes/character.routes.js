@@ -35,8 +35,8 @@ router.post('/save-character', async (req, res, next) => {
 
 router.get('/characterlist/global', async (req, res, next) =>{
 
-    const {id} = req.params;
-    const userId = id;
+    //const {id} = req.params;
+    //const userId = id;
 
     try {
         //const globalChars = await User.findById(userId).populate("characters");
@@ -49,6 +49,10 @@ router.get('/characterlist/global', async (req, res, next) =>{
         next(err);
     };
 });
+
+//! GET ALL CHARACTERS OF LOGGED IN USER
+
+//TODO Route goes here
 
 //! GET SINGLE CHARACTER route
 
@@ -107,13 +111,17 @@ router.delete('/character/:id', async (req, res, next) => {
         // Checking for 'Last Names' because of Syntax shenanigans,
         // since lastName is not 'required' on Char Model
         if(deletedChar.lastName) {
-            res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName} ${deletedChar.lastName}' (${deletedChar.charClass}) was deleted successfully.`});
+            res.status(200).json({message: `The character with the id '${charId.slice(-4).toUpperCase()}' and name '${deletedChar.firstName} ${deletedChar.lastName}' (${deletedChar.charClass}) was deleted successfully.`});
         } else {
-            res.status(200).json({message: `The character with the id '${charId.slice(-4)}' and name '${deletedChar.firstName}' (${deletedChar.charClass}) was deleted successfully.`});
+            res.status(200).json({message: `The character with the id '${charId.slice(-4).toUpperCase()}' and name '${deletedChar.firstName}' (${deletedChar.charClass}) was deleted successfully.`});
         }
     } catch (err) {
         next(err); 
     };
 });
+
+
+
+
 
 module.exports = router;

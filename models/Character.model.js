@@ -23,7 +23,7 @@ const characterSchema = new Schema(
             required: [true, "Ancestry is required."],
             default: "Human",
         },
-        backgrond: {
+        background: {
             type: String,
             required: [true, "Background is required."],
             default: "Farmer",
