@@ -9,12 +9,13 @@ router.post('/save-character', async (req, res, next) => {
     try {
 
         const {firstName, lastName, gender, level, ancestry,
-        background, charClass, deity, attributes} = req.body;
+        background, charClass, deity, attributes, descriptions} = req.body;
 
         const newCharacter = await Character.create({
             firstName, lastName, gender, 
             level, ancestry, background, 
-            charClass, deity, attributes 
+            charClass, deity, attributes,
+            descriptions 
         });
 
         //Find correct User?

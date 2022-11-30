@@ -66,6 +66,23 @@ const characterSchema = new Schema(
                 }
             }
         },
+        descriptions: {
+            type: Object,
+            descriptions: {
+                ancestryDescription: {
+                    type: String,
+                },
+                backgroundDescription: {
+                    type: String,
+                },
+                classDescription: {
+                    type: String,
+                },
+                deityDescription: {
+                    type: String,
+                },
+            }
+        }
     },
     {
         timestamps: true,
