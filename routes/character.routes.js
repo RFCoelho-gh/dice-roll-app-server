@@ -37,7 +37,7 @@ router.post('/save-character', async (req, res, next) => {
 router.get('/characterlist/global', async (req, res, next) =>{
 
     //const {id} = req.params;
-    //const userId = id;
+    //const userId = id;aaaaaa
 
     try {
         //const globalChars = await User.findById(userId).populate("characters");
