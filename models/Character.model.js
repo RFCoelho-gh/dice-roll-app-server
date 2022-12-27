@@ -9,10 +9,6 @@ const characterSchema = new Schema(
         lastName: {
             type: String,
         },
-        gender: {
-            type: String,
-            default: "other",
-        },
         level: {
             type: Number,
             required: [true, "Level is required."],
